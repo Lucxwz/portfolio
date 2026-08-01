@@ -1,0 +1,61 @@
+## Zweck & Zielperson
+- Lucas ist Programmierer in einem mittelständischen Fertigungsunternehmen (50–249 MA) in Baden-Württemberg und modernisiert die SPS-Entwicklung auf Siemens S7-1500 / TIA Portal.
+- Hauptziel: ein überzeugender interner **Business-Case für die Migration von AWL (STL) nach SCL**.
+- Zielperson/Entscheider: langjährige, tiefe AWL-Erfahrung, kurz vor der Rente → **risikoavers und skeptisch gegenüber schwer messbarem ROI**. Das sind die zentralen Überzeugungs-Hürden.
+
+## Argumentationslinie (harte Argumente, keine Stilfrage)
+Der Business-Case stützt sich bewusst auf **harte technische Argumente statt Entwicklervorlieben**:
+- Siemens hat AWL für **Neuentwicklung seit TIA Portal V13 abgekündigt** (deprecated).
+- **IEC 61131-3-Nichtkonformität** von AWL.
+- Performance-Benchmarks.
+- Features, die in AWL **technisch nicht verfügbar** sind: Software Units, Named Value Types, granulare OPC-UA-Zugriffssteuerung.
+- Framing durchgängig: neue Fähigkeiten als **Business-/Compliance-/Security-Argumente**, nicht als ästhetische Wahl.
+
+## Fachliche Domäne
+- Sprachen/Werkzeuge: AWL/SCL/STL/KOP/FUP, TIA Portal **V18–V20**, S7-1500-Architektur.
+- Referenzdokument: **Siemens Style Guide GL002 (Dokument 81318674, V2.1.0)**.
+- IEC-61131-3-OOP-Konzepte: FB = Klasse, Instanz = Objekt, Bausteinschnittstelle = Interface, Multi-Instanz = Komposition.
+- Kommunikation: OPC UA, TSEND_C/TRCV_C, MQTT, S7-Webserver, TIA Portal Openness API, PLCSIM Advanced.
+- Aktiv genutzte Style-Guide-Regelcodes: **DA005, DA006, RU004, RU005, SE004, ES007**.
+
+## Förderungen (Profil: 50–249 MA, Baden-Württemberg)
+- **L-Bank Digitalisierungsfinanzierung**: förderfähig; Kredit **25.000–250.000 EUR** über die Hausbank; Tilgungszuschuss **bis 5 %**.
+- **Qualifizierungschancengesetz (QCG)**: **50 % der Kurskosten** (55 % mit Tarifvertrag) **+ bis zu 50 % Lohnkostenzuschuss** während der Weiterbildung.
+  - ⚠️ **Nicht 100 %** — eine frühere Überschätzung wurde korrigiert. In formalen Dokumenten nicht übertreiben.
+
+## Aktueller Stand / erstellte Deliverables
+- Strukturierte **16-Folien-PowerPoint** für den Business-Case.
+- Verifizierte **Quellenliste**.
+- **SCL-Beispieldatei `FB_Motor`** — demonstriert OOP-Prinzipien nach GL002, per Copy-Paste direkt in TIA Portal importierbar.
+- **Code-Review eines bestehenden Main [OB1]** mit kritischen Abweichungen von Siemens Best Practices:
+  - starke Merker-Nutzung (%M) statt optimierter DBs
+  - gemischt AWL/FUP im selben OB
+  - JMP/Label-Sprünge (SPB/SPA)
+  - absolute Pointer-Adressierung
+  - S5-Timer (S_EVERZ) statt IEC-Timer (TON/TOF)
+  - Logik direkt in OB1 statt modularisiert in FBs/FCs
+  - deutsche Variablennamen/Kommentare statt leitfaden-empfohlenem Englisch (US)
+  - Gesamturteil: Legacy-S7-300-Stil statt modernem S7-1500/TIA-Portal-Ansatz
+- **Persuasion-Rollenspiel** gegen realistische Chef-Einwände durchgeführt. Schlüsselbedingungen zum Überzeugen des Entscheiders:
+  - konkrete Vorfalldaten mit Kosten
+  - Scope **nur auf Neuentwicklung** beschränken
+  - verifizierte Förderdetails schriftlich
+  - zuerst ein kontrolliertes Pilotprojekt
+
+## Schlüssel-Learnings & Prinzipien
+- Technische Features als **harte Argumente** framen (Nichtverfügbarkeit in AWL, Compliance, Security-Architektur) — überzeugt ein risikoaverses Publikum stärker als „Vorliebe".
+- QCG = **50 %** (nicht 100 %) — wichtig, in formalen Dokumenten nicht zu überschätzen.
+- Migrations-Scope **auf Neuentwicklung beschränken** = kritisches Zugeständnis, senkt das wahrgenommene Risiko und erhöht die Zustimmung deutlich.
+- Kosten-Nutzen-Tabellen im **Format des bestehenden Dokuments** aufbauen (leichte Copy-Paste-Integration).
+
+## Vorgehen & Muster
+- Lucas arbeitet **iterativ mit Feedback-Schleifen**: erst Entwürfe zeigen und bestätigen lassen, dann finale Dateien erzeugen.
+- Arbeitssprache: **Deutsch**.
+- Inhalte konsequent als Business-/Compliance-Argumente positionieren, nicht als ästhetische Wahl.
+- Neue Inhalte am Ende regelmäßig zur Integration ins bestehende Kosten-Nutzen-Dokument anbieten.
+
+## Tools & Ressourcen
+- TIA Portal V18–V20, S7-1500-Hardware.
+- PowerPoint-Erstellung via `pptxgenjs` (Node.js).
+- Siemens Style Guide GL002 (Dokument 81318674, V2.1.0) als zentrales Referenzdokument im Projektwissen.
+- Pitfall PPT: beim Einfügen von Folien mitten im Deck alle folgenden Seitenzahl-Aufrufe neu nummerieren; große Tabellen (11+ Zeilen) besser auf zwei Folien aufteilen statt zu klein zu skalieren.
